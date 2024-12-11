@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Sparkles } from "@react-three/drei";
 import { useRef } from "react";
 import Navbar from "./section/Navbar";
+import Hero from "./section/Hero";
 
 const RotatingCube = () => {
   const meshRef = useRef();
@@ -34,6 +35,7 @@ const App = () => {
   return (
     <main className="max-w-7xl mx-auto relative">
       <Navbar />
+      <Hero />
       {/* <Canvas
         style={{
           width: "100vw",
