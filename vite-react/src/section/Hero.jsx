@@ -3,49 +3,11 @@ import { Canvas } from "@react-three/fiber";
 import HackerRoom from "../components/HackerRoom";
 import { Suspense } from "react";
 import CanvasLoader from "../components/CanvasLoader";
-import { Leva, useControls } from "leva";
 import { useMediaQuery } from "react-responsive";
 import { calculateSizes } from "../constants";
+import HeroCamera from "../components/HeroCamera";
 
 const Hero = () => {
-  const x = useControls("HackerRoom", {
-    positionX: {
-      value: 2.5,
-      min: -10,
-      max: 10,
-    },
-    positionY: {
-      value: 2.5,
-      min: -10,
-      max: 10,
-    },
-    positionZ: {
-      value: 2.5,
-      min: -10,
-      max: 10,
-    },
-    rotationX: {
-      value: 0,
-      min: -10,
-      max: 10,
-    },
-    rotationY: {
-      value: 0,
-      min: -10,
-      max: 10,
-    },
-    rotationZ: {
-      value: 0,
-      min: -15,
-      max: 15,
-    },
-    scale: {
-      value: 1,
-      min: 0,
-      max: 2,
-    },
-  });
-
   const isSmall = useMediaQuery({ query: "(max-width: 440px)" });
   const isTablet = useMediaQuery({
     query: " (min-width :768) and(max-width: 1024px)",
@@ -64,18 +26,20 @@ const Hero = () => {
         </p>
       </div>
       <div className="w-full h-full absolute inset-0">
-        <Leva />
         <Canvas className="w-full h-full">
           <Suspense fallback={<CanvasLoader />}>
             <PerspectiveCamera makeDefault position={[0, 0, 20]} />
-            //rotation on y-axis is 3.15 ~~ PI value in radians
-            <HackerRoom
-              scale={sizes.deskScale}
-              //   position={[0, -7, 0]}
-              //   rotation={[0, 90, 0]}
-              position={sizes.deskPosition}
-              rotation={[0, -3.15, 0]}
-            />
+            <HeroCamera isMobile={isMobile}>
+              <HackerRoom
+                scale={sizes.deskScale}
+                //   position={[0, -7, 0]}
+                //   rotation={[0, 90, 0]}
+                position={sizes.deskPosition}
+                rotation={[0, -3.15, 0]}
+              />
+            </HeroCamera>
+            {/* rotation on y-axis is 3.15 ~~ PI value in radians */}
+
             <ambientLight intensity={1} />
             <directionalLight intensity={0.5} position={[10, 10, 10]} />
           </Suspense>
